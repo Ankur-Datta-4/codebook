@@ -16,13 +16,15 @@ const executeCpp=(filePath)=>{
     return new Promise((resolve,reject)=>{1
       exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && ${jobId}.exe`,
       (error,stdout,stderr)=>{
+        if(stderr){
+            resolve(stderr)
+        }
+        
           if(error){
               reject({error,stderr});
 
           }
-          if(stderr){
-              reject(stderr)
-          }
+          
           resolve(stdout);
       })
 
